@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日誌 ― 鱗と焔</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Shippori+Mincho:wght@500;700;800&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --void:#120e0a;
+    --leather:#241c14;
+    --leather-deep:#0f0b08;
+    --gold:#c9a24b;
+    --gold-bright:#ecce8a;
+    --gold-dim:#8a6f36;
+    --jade:#3c7c62;
+    --crimson:#8a3324;
+    --parchment:#ece0c4;
+    --parchment-dim:#a89877;
+    --display-jp:'Shippori Mincho', serif;
+    --display-en:'Cinzel Decorative', serif;
+    --body:'Zen Old Mincho', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--parchment);
+    font-family:var(--body);
+    line-height:1.9;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--crimson); color:var(--parchment);}
+
+  .gold-rule{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin:0 auto;
+  }
+  .gold-rule .line{
+    height:1px;
+    width:64px;
+    background:linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .gold-rule .dot{
+    width:6px; height:6px;
+    border:1px solid var(--gold);
+    transform:rotate(45deg);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px clamp(20px,5vw,64px);
+    background:var(--leather-deep);
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .logo{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:21px;
+    letter-spacing:0.15em;
+    text-decoration:none;
+    color:var(--gold-bright);
+  }
+  nav ul{
+    display:flex;
+    gap:clamp(16px,3vw,36px);
+    list-style:none;
+    margin:0; padding:0;
+  }
+  nav a{
+    font-family:var(--display-jp);
+    font-size:14px;
+    letter-spacing:0.2em;
+    text-decoration:none;
+    color:var(--parchment-dim);
+    transition:color .3s ease;
+  }
+  nav a.active, nav a:hover{color:var(--gold-bright);}
+
+  /* ---------- page hero ---------- */
+  .page-hero{
+    padding:80px 24px 60px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 20%, rgba(201,162,75,0.08), transparent 65%),
+      linear-gradient(180deg, var(--leather-deep), var(--void));
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .page-hero .eyebrow{
+    font-family:var(--display-en);
+    font-size:12px;
+    letter-spacing:0.5em;
+    color:var(--gold-dim);
+    margin:0 0 18px;
+  }
+  .page-hero h1{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:clamp(36px,5vw,52px);
+    margin:0 0 14px;
+    letter-spacing:0.1em;
+  }
+  .page-hero p{
+    max-width:480px;
+    margin:0 auto;
+    font-size:15px;
+    color:var(--parchment-dim);
+  }
+
+  /* ---------- diary list ---------- */
+  .diary{
+    max-width:640px;
+    margin:0 auto;
+    padding:80px 24px 120px;
+  }
+  .entry{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:26px;
+    padding:30px 0;
+    border-bottom:1px solid rgba(138,111,54,0.4);
+  }
+  .entry:first-child{padding-top:0;}
+  .entry:last-child{border-bottom:none;}
+  .entry-date{
+    font-family:var(--display-en);
+    font-size:13px;
+    letter-spacing:0.1em;
+    color:var(--gold);
+    line-height:1.6;
+    padding-top:2px;
+  }
+  .entry-date .year{
+    display:block;
+    font-size:11px;
+    color:var(--gold-dim);
+    margin-top:2px;
+  }
+  .entry-body p{
+    margin:0;
+    font-size:15.5px;
+    color:var(--parchment);
+  }
+  .entry-tag{
+    display:inline-block;
+    font-family:var(--display-jp);
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--jade);
+    border:1px solid var(--jade);
+    padding:2px 10px;
+    margin-bottom:10px;
+  }
+  .entry-tag.west{color:var(--crimson); border-color:var(--crimson);}
+
+  .diary-end{
+    text-align:center;
+    margin-top:60px;
+  }
+  .diary-end span{
+    font-family:var(--display-en);
+    font-size:11px;
+    letter-spacing:0.4em;
+    color:var(--gold-dim);
+  }
+
+  @media (max-width:560px){
+    .entry{grid-template-columns:1fr; gap:8px;}
+    .entry-date{display:flex; gap:8px; align-items:baseline;}
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:56px clamp(20px,6vw,80px) 34px;
+    font-size:12.5px;
+    color:var(--parchment-dim);
+    border-top:1px solid var(--gold-dim);
+  }
+  .footer-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:36px;
+    justify-content:space-between;
+    margin-bottom:34px;
+  }
+  .footer-col h5{
+    font-family:var(--display-jp);
+    font-size:13px;
+    letter-spacing:0.15em;
+    color:var(--gold);
+    margin:0 0 12px 0;
+  }
+  .footer-col p, .footer-col a{
+    display:block;
+    font-size:12.5px;
+    color:var(--parchment-dim);
+    text-decoration:none;
+    margin-bottom:7px;
+  }
+  .footer-col a:hover{color:var(--gold-bright);}
+  .footer-bottom{
+    border-top:1px solid rgba(201,162,75,0.25);
+    padding-top:20px;
+    font-size:11.5px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:space-between;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">鱗と焔</a>
+  <nav>
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a class="active" href="blog.html">日誌</a></li>
+      <li><a href="gallery.html">図譜</a></li>
+      <li><a href="about.html">由来</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <p class="eyebrow">FIELD NOTES</p>
+  <h1>日誌</h1>
+  <p>龍について調べたこと、気づいたことを、日付だけ添えて残していく記録。</p>
+</section>
+
+<section class="diary">
+
+  <div class="entry">
+    <div class="entry-date">9.8<span class="year">2026</span></div>
+    <div class="entry-body">
+      <span class="entry-tag">東</span>
+      <p>龍の爪の数、中国では五爪は皇帝だけに許された図案だったと知る。日本や朝鮮に伝わる過程で爪の数が減っていく話が面白い。</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">9.3<span class="year">2026</span></div>
+    <div class="entry-body">
+      <span class="entry-tag west">西</span>
+      <p>ウェールズの旗の赤い竜、Y Ddraig Goch の由来を調べる。白い竜との戦いの伝説があるらしい、掘り下げたい。</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">8.27<span class="year">2026</span></div>
+    <div class="entry-body">
+      <span class="entry-tag">東</span>
+      <p>八岐大蛇は「龍」と呼ばれることもあるけど厳密には大蛇（おろち）扱いらしい。龍と蛇の境界線、資料によって揺れがある。</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">8.20<span class="year">2026</span></div>
+    <div class="entry-body">
+      <span class="entry-tag west">西</span>
+      <p>ファーヴニルの話を読み返す。もともと人間だったのに宝を守るうちに竜に変わってしまう、というのが西洋の竜らしいモチーフだと思う。</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">8.14<span class="year">2026</span></div>
+    <div class="entry-body">
+      <span class="entry-tag">東</span>
+      <p>龍が持つ宝珠について。あれは龍自身の力の源であり、時々人に奪われる話がある。真珠や如意宝珠のイメージが混ざっているらしい。</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">8.6<span class="year">2026</span></div>
+    <div class="entry-body">
+      <span class="entry-tag west">西</span>
+      <p>聖ゲオルギウスと竜の話をまとめ直した。竜退治譚のほとんどが「守るべきもの（村・乙女）」とセットで語られる構造なのが分かってきた。</p>
+    </div>
+  </div>
+
+  <div class="diary-end">
+    <span>— ここまで —</span>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h5>CONTACT</h5>
+      <p style="margin-bottom:10px;">ご意見・ご感想はこちらから</p>
+      <a href="https://formspree.io/f/maqvpvoz">お問い合わせフォーム</a>
+    </div>
+    <div class="footer-col">
+      <h5>NAVIGATE</h5>
+      <a href="index.html">ホーム</a>
+      <a href="blog.html">日誌</a>
+      <a href="gallery.html">図譜</a>
+      <a href="about.html">由来</a>
+    </div>
+    <div class="footer-col">
+      <h5>AZALEA CREATIVE ROOM</h5>
+      <a href="#">創作の拠点はこちら</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>本サイトのテキスト・画像は生成AIの学習データとしての使用を禁じます。</span>
+    <span>© 鱗と焔</span>
+  </div>
+</footer>
+
+</body>
+</html>
