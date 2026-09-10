@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鱗と焔 ― 東西の龍を追う</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Shippori+Mincho:wght@500;700;800&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --void:#120e0a;
+    --leather:#241c14;
+    --leather-deep:#0f0b08;
+    --gold:#c9a24b;
+    --gold-bright:#ecce8a;
+    --gold-dim:#8a6f36;
+    --jade:#3c7c62;
+    --jade-deep:#1f4335;
+    --crimson:#8a3324;
+    --crimson-deep:#4a180f;
+    --parchment:#ece0c4;
+    --parchment-dim:#a89877;
+    --display-jp:'Shippori Mincho', serif;
+    --display-en:'Cinzel Decorative', serif;
+    --body:'Zen Old Mincho', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--parchment);
+    font-family:var(--body);
+    line-height:1.9;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--crimson); color:var(--parchment);}
+
+  .gold-rule{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin:0 auto;
+  }
+  .gold-rule .line{
+    height:1px;
+    width:64px;
+    background:linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .gold-rule .dot{
+    width:6px; height:6px;
+    border:1px solid var(--gold);
+    transform:rotate(45deg);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px clamp(20px,5vw,64px);
+    background:var(--leather-deep);
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .logo{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:21px;
+    letter-spacing:0.15em;
+    text-decoration:none;
+    color:var(--gold-bright);
+  }
+  nav ul{
+    display:flex;
+    gap:clamp(16px,3vw,36px);
+    list-style:none;
+    margin:0; padding:0;
+  }
+  nav a{
+    font-family:var(--display-jp);
+    font-size:14px;
+    letter-spacing:0.2em;
+    text-decoration:none;
+    color:var(--parchment-dim);
+    transition:color .3s ease;
+  }
+  nav a.active, nav a:hover{color:var(--gold-bright);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:70px clamp(20px,5vw,60px) 90px;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 30%, rgba(201,162,75,0.08), transparent 65%),
+      linear-gradient(180deg, var(--leather-deep), var(--void) 55%, var(--leather-deep));
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .hero-frame{
+    max-width:1040px;
+    margin:0 auto;
+    position:relative;
+    border:1px solid var(--gold-dim);
+    padding:56px clamp(20px,4vw,60px) 44px;
+  }
+  .corner{
+    position:absolute;
+    width:64px; height:64px;
+    opacity:0.9;
+  }
+  .corner.tl{top:-1px; left:-1px;}
+  .corner.tr{top:-1px; right:-1px; transform:scaleX(-1);}
+  .corner.bl{bottom:-1px; left:-1px; transform:scaleY(-1);}
+  .corner.br{bottom:-1px; right:-1px; transform:scale(-1,-1);}
+
+  .eyebrow{
+    text-align:center;
+    font-family:var(--display-en);
+    font-size:13px;
+    letter-spacing:0.5em;
+    color:var(--gold-dim);
+    margin:0 0 30px 0;
+  }
+
+  .emblem-wrap{
+    display:flex;
+    justify-content:center;
+    margin:0 auto 26px;
+  }
+  .emblem{
+    width:min(360px,72vw);
+  }
+
+  .cartouche{
+    max-width:460px;
+    margin:-18px auto 0;
+    background:var(--leather-deep);
+    border:1px solid var(--gold);
+    padding:22px 30px 20px;
+    text-align:center;
+    position:relative;
+  }
+  .cartouche::before, .cartouche::after{
+    content:"";
+    position:absolute;
+    top:6px; bottom:6px;
+    width:1px;
+    background:var(--gold-dim);
+  }
+  .cartouche::before{left:6px;}
+  .cartouche::after{right:6px;}
+  .cartouche h1{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:clamp(32px,4.6vw,46px);
+    letter-spacing:0.12em;
+    margin:0 0 8px 0;
+    color:var(--parchment);
+  }
+  .cartouche .sub-en{
+    font-family:var(--display-en);
+    font-size:13px;
+    letter-spacing:0.35em;
+    color:var(--gold);
+  }
+
+  .hero-desc{
+    max-width:480px;
+    margin:34px auto 0;
+    text-align:center;
+    font-size:15.5px;
+    color:var(--parchment-dim);
+  }
+
+  .hero-links{
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    margin-top:36px;
+    flex-wrap:wrap;
+  }
+  .plaque{
+    font-family:var(--display-jp);
+    font-size:14px;
+    letter-spacing:0.2em;
+    text-decoration:none;
+    color:var(--parchment);
+    border:1px solid var(--gold-dim);
+    padding:12px 30px;
+    position:relative;
+    transition:border-color .3s ease, color .3s ease;
+  }
+  .plaque:hover{
+    border-color:var(--gold);
+    color:var(--gold-bright);
+  }
+
+  /* ---------- intro ---------- */
+  .intro{
+    max-width:620px;
+    margin:0 auto;
+    padding:110px 26px 100px;
+    text-align:center;
+    position:relative;
+  }
+  .intro .drop{
+    font-family:var(--display-jp);
+    font-size:64px;
+    line-height:1;
+    color:var(--gold);
+    display:block;
+    margin-bottom:14px;
+  }
+  .intro p{
+    font-size:18px;
+    color:var(--parchment);
+  }
+  .intro .accent-west{color:var(--crimson); font-family:var(--display-jp);}
+  .intro .accent-east{color:var(--jade); font-family:var(--display-jp);}
+
+  /* ---------- duality ---------- */
+  .duality-wrap{
+    max-width:1040px;
+    margin:0 auto 120px;
+    padding:0 24px;
+  }
+  .scroll-panel{
+    border:1px solid var(--gold-dim);
+    padding:8px;
+    margin-bottom:34px;
+  }
+  .scroll-inner{
+    border:1px solid var(--gold-dim);
+    padding:36px clamp(16px,3vw,40px);
+  }
+  .duality-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:26px;
+  }
+  .beast{
+    padding:32px 28px;
+    border:1px solid var(--gold-dim);
+    position:relative;
+    background:linear-gradient(160deg, rgba(201,162,75,0.05), transparent 70%);
+  }
+  .beast .rank{
+    font-family:var(--display-en);
+    font-size:11px;
+    letter-spacing:0.35em;
+    color:var(--gold-dim);
+    display:block;
+    margin-bottom:16px;
+  }
+  .beast h2{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:26px;
+    margin:0 0 22px 0;
+  }
+  .beast.west h2{color:var(--crimson);}
+  .beast.east h2{color:var(--jade);}
+  .beast p{
+    font-size:14.5px;
+    color:var(--parchment-dim);
+    margin:0 0 22px 0;
+  }
+  .beast ul{
+    list-style:none;
+    margin:0; padding:0;
+    border-top:1px solid var(--gold-dim);
+  }
+  .beast li{
+    padding:11px 0;
+    border-bottom:1px solid var(--gold-dim);
+    font-size:13.5px;
+    display:flex;
+    justify-content:space-between;
+    color:var(--parchment);
+  }
+  .beast li span{
+    color:var(--gold);
+    font-family:var(--display-jp);
+    font-size:12.5px;
+  }
+
+  /* ---------- explore ---------- */
+  .explore{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 24px 120px;
+  }
+  .explore-head{
+    text-align:center;
+    margin-bottom:56px;
+  }
+  .explore-head h3{
+    font-family:var(--display-jp);
+    font-weight:700;
+    font-size:28px;
+    margin:14px 0 10px;
+  }
+  .explore-head p{
+    color:var(--parchment-dim);
+    font-size:14.5px;
+    margin:0;
+  }
+  .explore-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .tile{
+    border:1px solid var(--gold-dim);
+    padding:44px 34px;
+    text-decoration:none;
+    color:var(--parchment);
+    transition:border-color .3s ease, background .3s ease;
+    position:relative;
+  }
+  .tile:hover{
+    border-color:var(--gold);
+    background:rgba(201,162,75,0.05);
+  }
+  .tile .roman{
+    font-family:var(--display-en);
+    font-size:13px;
+    letter-spacing:0.25em;
+    color:var(--gold);
+    display:block;
+    margin-bottom:18px;
+  }
+  .tile h4{
+    font-family:var(--display-jp);
+    font-size:24px;
+    margin:0 0 14px 0;
+    font-weight:700;
+  }
+  .tile p{
+    font-size:14px;
+    color:var(--parchment-dim);
+    margin:0;
+    max-width:32ch;
+  }
+
+  /* ---------- about teaser ---------- */
+  .about-teaser{
+    border-top:1px solid var(--gold-dim);
+    border-bottom:1px solid var(--gold-dim);
+    padding:80px 24px;
+    text-align:center;
+    background:var(--leather-deep);
+  }
+  .about-teaser p{
+    max-width:46ch;
+    margin:0 auto 24px;
+    font-size:15px;
+    color:var(--parchment-dim);
+  }
+  .about-teaser a{
+    font-family:var(--display-jp);
+    font-size:14px;
+    letter-spacing:0.2em;
+    text-decoration:none;
+    color:var(--gold-bright);
+    border-bottom:1px solid var(--gold);
+    padding-bottom:4px;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:56px clamp(20px,6vw,80px) 34px;
+    font-size:12.5px;
+    color:var(--parchment-dim);
+  }
+  .footer-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:36px;
+    justify-content:space-between;
+    margin-bottom:34px;
+  }
+  .footer-col h5{
+    font-family:var(--display-jp);
+    font-size:13px;
+    letter-spacing:0.15em;
+    color:var(--gold);
+    margin:0 0 12px 0;
+  }
+  .footer-col p, .footer-col a{
+    display:block;
+    font-size:12.5px;
+    color:var(--parchment-dim);
+    text-decoration:none;
+    margin-bottom:7px;
+  }
+  .footer-col a:hover{color:var(--gold-bright);}
+  .footer-bottom{
+    border-top:1px solid rgba(201,162,75,0.25);
+    padding-top:20px;
+    font-size:11.5px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:space-between;
+  }
+
+  @media (max-width:760px){
+    .duality-cards{grid-template-columns:1fr;}
+    .explore-grid{grid-template-columns:1fr;}
+    nav ul{gap:12px;}
+    nav a{font-size:12px;}
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">鱗と焔</a>
+  <nav>
+    <ul>
+      <li><a class="active" href="index.html">ホーム</a></li>
+      <li><a href="blog.html">日誌</a></li>
+      <li><a href="gallery.html">図譜</a></li>
+      <li><a href="about.html">由来</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-frame">
+
+    <svg class="corner tl" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#c9a24b" stroke-width="1.4">
+      <path d="M2 30 C 2 12, 12 2, 30 2"/>
+      <path d="M2 20 C 16 20, 20 6, 20 2" opacity="0.7"/>
+      <circle cx="6" cy="6" r="2.4" fill="#c9a24b" stroke="none"/>
+      <path d="M32 8 C 40 4, 46 12, 40 18 C 46 16, 50 22, 44 26" opacity="0.6"/>
+    </svg>
+    <svg class="corner tr" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#c9a24b" stroke-width="1.4">
+      <path d="M2 30 C 2 12, 12 2, 30 2"/>
+      <path d="M2 20 C 16 20, 20 6, 20 2" opacity="0.7"/>
+      <circle cx="6" cy="6" r="2.4" fill="#c9a24b" stroke="none"/>
+      <path d="M32 8 C 40 4, 46 12, 40 18 C 46 16, 50 22, 44 26" opacity="0.6"/>
+    </svg>
+    <svg class="corner bl" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#c9a24b" stroke-width="1.4">
+      <path d="M2 30 C 2 12, 12 2, 30 2"/>
+      <path d="M2 20 C 16 20, 20 6, 20 2" opacity="0.7"/>
+      <circle cx="6" cy="6" r="2.4" fill="#c9a24b" stroke="none"/>
+      <path d="M32 8 C 40 4, 46 12, 40 18 C 46 16, 50 22, 44 26" opacity="0.6"/>
+    </svg>
+    <svg class="corner br" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#c9a24b" stroke-width="1.4">
+      <path d="M2 30 C 2 12, 12 2, 30 2"/>
+      <path d="M2 20 C 16 20, 20 6, 20 2" opacity="0.7"/>
+      <circle cx="6" cy="6" r="2.4" fill="#c9a24b" stroke="none"/>
+      <path d="M32 8 C 40 4, 46 12, 40 18 C 46 16, 50 22, 44 26" opacity="0.6"/>
+    </svg>
+
+    <p class="eyebrow">EAST &amp; WEST · A CHRONICLE OF DRAGONS</p>
+
+    <div class="emblem-wrap">
+      <svg class="emblem" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="188" fill="none" stroke="#c9a24b" stroke-width="1.4"/>
+        <circle cx="200" cy="200" r="172" fill="none" stroke="#8a6f36" stroke-width="1"/>
+        <g stroke="#8a6f36" stroke-width="1">
+          <line x1="200" y1="12" x2="200" y2="28"/>
+          <line x1="200" y1="372" x2="200" y2="388"/>
+          <line x1="12" y1="200" x2="28" y2="200"/>
+          <line x1="372" y1="200" x2="388" y2="200"/>
+        </g>
+
+        <!-- west dragon: coiling from lower-left up to center, winged -->
+        <path d="M60 300 C 40 340, 70 372, 108 358 C 96 340, 100 320, 118 310 C 96 306, 88 284, 104 268 C 128 276, 150 260, 148 236 C 168 246, 188 232, 184 210 C 196 200, 200 200, 200 200"
+              fill="none" stroke="#8a3324" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M148 236 C 176 224, 192 192, 172 168 C 190 172, 208 158, 200 138"
+              fill="none" stroke="#8a3324" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+        <path d="M96 280 C 70 268, 56 240, 78 220 C 66 224, 50 214, 54 196"
+              fill="none" stroke="#8a3324" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+        <circle cx="188" cy="205" r="7" fill="#8a3324"/>
+        <path d="M180 195 L 168 180 M195 190 L 196 172" stroke="#8a3324" stroke-width="3" stroke-linecap="round"/>
+        <path d="M96 340 C 80 350, 62 348, 56 334 C 66 336, 78 330, 82 320 Z" fill="#8a3324" opacity="0.9"/>
+
+        <!-- east dragon: winding from upper-right down to center, whiskered, no wings -->
+        <path d="M340 100 C 360 60, 330 28, 292 42 C 304 60, 300 80, 282 90 C 304 94, 312 116, 296 132 C 272 124, 250 140, 252 164 C 232 154, 212 168, 216 190 C 204 200, 200 200, 200 200"
+              fill="none" stroke="#3c7c62" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M252 164 C 224 176, 208 208, 228 232 C 210 228, 192 242, 200 262"
+              fill="none" stroke="#3c7c62" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+        <path d="M304 120 C 330 132, 344 160, 322 180 C 334 176, 350 186, 346 204"
+              fill="none" stroke="#3c7c62" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+        <circle cx="212" cy="195" r="7" fill="#3c7c62"/>
+        <path d="M220 205 L 232 220 M205 210 L 204 228" stroke="#3c7c62" stroke-width="3" stroke-linecap="round"/>
+        <path d="M304 60 C 320 50, 336 56, 338 72 C 328 66, 316 70, 310 78 Z" fill="#3c7c62" opacity="0.9"/>
+
+        <!-- shared pearl at center -->
+        <circle cx="200" cy="200" r="10" fill="none" stroke="#ecce8a" stroke-width="2"/>
+        <circle cx="200" cy="200" r="4" fill="#ecce8a"/>
+      </svg>
+    </div>
+
+    <div class="cartouche">
+      <h1>鱗と焔</h1>
+      <span class="sub-en">SCALE &amp; FLAME</span>
+    </div>
+
+    <p class="hero-desc">翼を広げ焔を吐く西の竜と、雲を纏い水を従える東の龍。生まれた土地も纏う意味もまるで違う二頭を、一つの物語として並べて追いかける記録。</p>
+
+    <div class="hero-links">
+      <a class="plaque" href="blog.html">日誌を読む</a>
+      <a class="plaque" href="gallery.html">図譜を見る</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="intro">
+  <span class="drop">龍</span>
+  <p>雲を割いて天へ昇る<span class="accent-east">東の龍</span>がいれば、山の奥で財宝を抱いて眠る<span class="accent-west">西の竜</span>もいる。生まれた場所も、託された意味もまるで違う二つの姿を、ひとつの物語のように並べて辿っていく。</p>
+</section>
+
+<section class="duality-wrap">
+  <div class="duality-cards">
+    <div class="beast west">
+      <span class="rank">CHAPTER I — WEST</span>
+      <h2>西洋の龍</h2>
+      <p>コウモリのような翼、鎧のような鱗、口から吐く炎。財宝や乙女を守る番人として現れ、しばしば騎士に討たれる宿敵として物語を締めくくる。</p>
+      <ul>
+        <li>象徴<span>翼・炎・財宝</span></li>
+        <li>紋章<span>Y Ddraig Goch</span></li>
+        <li>伝承<span>ファーヴニル ほか</span></li>
+        <li>役割<span>守護者／宿敵</span></li>
+      </ul>
+    </div>
+    <div class="beast east">
+      <span class="rank">第二章 — 東</span>
+      <h2>東洋の龍</h2>
+      <p>蛇のように長く伸びた胴に、鹿の角、鷹の爪、鯉の鱗。翼を持たず、雲を掴み水を操って天へ昇る。恵みの雨をもたらす存在として祀られてきた。</p>
+      <ul>
+        <li>象徴<span>雲・水・宝珠</span></li>
+        <li>爪<span>四爪・五爪</span></li>
+        <li>信仰<span>龍王・雨乞い</span></li>
+        <li>伝承<span>八岐大蛇 ほか</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="explore">
+  <div class="explore-head">
+    <div class="gold-rule"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+    <h3>記録をたどる</h3>
+    <p>龍について学んだこと、描いたものを少しずつ積み重ねていく場所。</p>
+  </div>
+  <div class="explore-grid">
+    <a class="tile" href="blog.html">
+      <span class="roman">I ・ LOG</span>
+      <h4>日誌</h4>
+      <p>調べたこと、気づいたことを日付だけ添えて残す、つぶやきのような記録。</p>
+    </a>
+    <a class="tile" href="gallery.html">
+      <span class="roman">II ・ ART</span>
+      <h4>図譜</h4>
+      <p>龍を主題に描いた漫画やイラストを並べる場所。</p>
+    </a>
+  </div>
+</section>
+
+<section class="about-teaser">
+  <p>なぜ東西の龍を並べて追いかけているのか、このサイトを作った理由について少し書いています。</p>
+  <a href="about.html">由来を読む</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h5>CONTACT</h5>
+      <p style="margin-bottom:10px;">ご意見・ご感想はこちらから</p>
+      <a href="https://formspree.io/f/maqvpvoz">お問い合わせフォーム</a>
+    </div>
+    <div class="footer-col">
+      <h5>NAVIGATE</h5>
+      <a href="index.html">ホーム</a>
+      <a href="blog.html">日誌</a>
+      <a href="gallery.html">図譜</a>
+      <a href="about.html">由来</a>
+    </div>
+    <div class="footer-col">
+      <h5>AZALEA CREATIVE ROOM</h5>
+      <a href="#">創作の拠点はこちら</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>本サイトのテキスト・画像は生成AIの学習データとしての使用を禁じます。</span>
+    <span>© 鱗と焔</span>
+  </div>
+</footer>
+
+</body>
+</html>
