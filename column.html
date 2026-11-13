@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>随筆 ― 鱗と焔</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Shippori+Mincho:wght@500;700;800&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --void:#120e0a;
+    --leather:#241c14;
+    --leather-deep:#0f0b08;
+    --gold:#c9a24b;
+    --gold-bright:#ecce8a;
+    --gold-dim:#8a6f36;
+    --jade:#3c7c62;
+    --crimson:#8a3324;
+    --parchment:#ece0c4;
+    --parchment-dim:#a89877;
+    --display-jp:'Shippori Mincho', serif;
+    --display-en:'Cinzel Decorative', serif;
+    --body:'Zen Old Mincho', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--parchment);
+    font-family:var(--body);
+    line-height:1.9;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--crimson); color:var(--parchment);}
+
+  .gold-rule{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin:0 auto;
+  }
+  .gold-rule .line{
+    height:1px;
+    width:64px;
+    background:linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .gold-rule .dot{
+    width:6px; height:6px;
+    border:1px solid var(--gold);
+    transform:rotate(45deg);
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px clamp(20px,5vw,64px);
+    background:var(--leather-deep);
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .logo{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:21px;
+    letter-spacing:0.15em;
+    text-decoration:none;
+    color:var(--gold-bright);
+  }
+  nav ul{
+    display:flex;
+    gap:clamp(14px,2.6vw,34px);
+    list-style:none;
+    margin:0; padding:0;
+  }
+  nav a{
+    font-family:var(--display-jp);
+    font-size:14px;
+    letter-spacing:0.2em;
+    text-decoration:none;
+    color:var(--parchment-dim);
+    transition:color .3s ease;
+  }
+  nav a.active, nav a:hover{color:var(--gold-bright);}
+
+  .page-hero{
+    padding:80px 24px 60px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 20%, rgba(201,162,75,0.08), transparent 65%),
+      linear-gradient(180deg, var(--leather-deep), var(--void));
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .page-hero .eyebrow{
+    font-family:var(--display-en);
+    font-size:12px;
+    letter-spacing:0.5em;
+    color:var(--gold-dim);
+    margin:0 0 18px;
+  }
+  .page-hero h1{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:clamp(36px,5vw,52px);
+    margin:0 0 14px;
+    letter-spacing:0.1em;
+  }
+  .page-hero p{
+    max-width:480px;
+    margin:0 auto;
+    font-size:15px;
+    color:var(--parchment-dim);
+  }
+
+  /* ---------- contents ---------- */
+  .contents{
+    max-width:680px;
+    margin:0 auto;
+    padding:70px 24px 20px;
+  }
+  .contents h2{
+    font-family:var(--display-en);
+    font-size:12px;
+    letter-spacing:0.45em;
+    color:var(--gold-dim);
+    text-align:center;
+    margin:0 0 30px;
+    font-weight:400;
+  }
+  .contents ol{
+    list-style:none;
+    margin:0; padding:0;
+    border-top:1px solid var(--gold-dim);
+  }
+  .contents li a{
+    display:flex;
+    gap:22px;
+    align-items:baseline;
+    padding:16px 4px;
+    border-bottom:1px solid rgba(138,111,54,0.45);
+    text-decoration:none;
+    transition:background .3s ease;
+  }
+  .contents li a:hover{background:rgba(201,162,75,0.05);}
+  .contents .no{
+    font-family:var(--display-en);
+    font-size:13px;
+    color:var(--gold);
+    min-width:34px;
+  }
+  .contents .ttl{
+    font-family:var(--display-jp);
+    font-size:17px;
+    font-weight:700;
+    flex:1;
+  }
+  .contents .dt{
+    font-family:var(--display-en);
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--parchment-dim);
+  }
+
+  /* ---------- articles ---------- */
+  .articles{
+    max-width:640px;
+    margin:0 auto;
+    padding:60px 24px 120px;
+  }
+  article{
+    padding:70px 0 20px;
+    border-bottom:1px solid rgba(138,111,54,0.45);
+    margin-bottom:10px;
+  }
+  article:last-of-type{border-bottom:none;}
+  .art-head{
+    text-align:center;
+    margin-bottom:34px;
+  }
+  .art-no{
+    font-family:var(--display-en);
+    font-size:12px;
+    letter-spacing:0.4em;
+    color:var(--gold);
+    display:block;
+    margin-bottom:14px;
+  }
+  .art-head h3{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:clamp(24px,3.4vw,32px);
+    margin:0 0 12px;
+    line-height:1.5;
+  }
+  .art-meta{
+    font-family:var(--display-en);
+    font-size:11px;
+    letter-spacing:0.15em;
+    color:var(--parchment-dim);
+  }
+  .art-tag{
+    display:inline-block;
+    font-family:var(--display-jp);
+    font-size:11px;
+    letter-spacing:0.1em;
+    padding:2px 10px;
+    margin-right:10px;
+    border:1px solid var(--jade);
+    color:var(--jade);
+  }
+  .art-tag.west{border-color:var(--crimson); color:var(--crimson);}
+  .art-tag.both{border-color:var(--gold); color:var(--gold);}
+  article p{
+    font-size:16px;
+    margin:0 0 1.5em;
+    color:var(--parchment);
+  }
+  article p.first::first-letter{
+    font-family:var(--display-jp);
+    font-weight:800;
+    font-size:2.4em;
+    color:var(--gold);
+    float:left;
+    line-height:1;
+    padding:4px 10px 0 0;
+  }
+  .to-top{
+    display:block;
+    text-align:center;
+    margin-top:36px;
+    font-family:var(--display-en);
+    font-size:11px;
+    letter-spacing:0.35em;
+    color:var(--gold-dim);
+    text-decoration:none;
+  }
+  .to-top:hover{color:var(--gold-bright);}
+
+  @media (max-width:560px){
+    .contents li a{flex-wrap:wrap; gap:6px 14px;}
+    .contents .dt{width:100%; padding-left:48px;}
+    nav ul{gap:10px;}
+    nav a{font-size:12px; letter-spacing:0.1em;}
+  }
+
+  footer{
+    padding:56px clamp(20px,6vw,80px) 34px;
+    font-size:12.5px;
+    color:var(--parchment-dim);
+    border-top:1px solid var(--gold-dim);
+  }
+  .footer-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:36px;
+    justify-content:space-between;
+    margin-bottom:34px;
+  }
+  .footer-col h5{
+    font-family:var(--display-jp);
+    font-size:13px;
+    letter-spacing:0.15em;
+    color:var(--gold);
+    margin:0 0 12px 0;
+  }
+  .footer-col p, .footer-col a{
+    display:block;
+    font-size:12.5px;
+    color:var(--parchment-dim);
+    text-decoration:none;
+    margin-bottom:7px;
+  }
+  .footer-col a:hover{color:var(--gold-bright);}
+  .footer-bottom{
+    border-top:1px solid rgba(201,162,75,0.25);
+    padding-top:20px;
+    font-size:11.5px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:space-between;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">鱗と焔</a>
+  <nav>
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="blog.html">日誌</a></li>
+      <li><a href="gallery.html">図譜</a></li>
+      <li><a class="active" href="column.html">随筆</a></li>
+      <li><a href="about.html">由来</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <p class="eyebrow">ESSAYS ON DRAGONS</p>
+  <h1>随筆</h1>
+  <p>龍と竜について、調べるうちに考えたことを少し長めに書き留める場所。</p>
+</section>
+
+<section class="contents">
+  <h2>CONTENTS</h2>
+  <ol>
+    <li><a href="#c1"><span class="no">I</span><span class="ttl">「龍」と「竜」のあいだ</span><span class="dt">2026.10</span></a></li>
+    <li><a href="#c2"><span class="no">II</span><span class="ttl">翼のない龍はなぜ飛べるのか</span><span class="dt">2026.10</span></a></li>
+    <li><a href="#c3"><span class="no">III</span><span class="ttl">宝珠と財宝、ふたつの「守るもの」</span><span class="dt">2026.11</span></a></li>
+  </ol>
+</section>
+
+<section class="articles">
+
+  <article id="c1">
+    <div class="art-head">
+      <span class="art-no">ESSAY I</span>
+      <h3>「龍」と「竜」のあいだ</h3>
+      <div class="art-meta"><span class="art-tag both">東西</span>2026.10</div>
+    </div>
+    <p class="first">このサイトでは、東洋のものを「龍」、西洋のものを「竜」と書き分けている。もともと「竜」は「龍」の字体を簡略にしたもので、意味に違いはない。それでも二つを使い分けたくなったのは、画面に並べたときの印象が驚くほど違ったからだ。</p>
+    <p>画数の多い「龍」には、雲や水、鱗の細かな連なりまで含まれているように見える。対して「竜」の字は、どこか一本の骨格のように潔い。翼を広げて立つ西洋のドラゴンには、あの簡潔な形がよく似合う。</p>
+    <p>もちろんこれは私だけの便宜的な決まりごとで、資料によって表記はまちまちだ。ただ、字面から想像する姿が変わるという体験そのものが、東西の龍を並べて眺める面白さの入口になっている気がしている。</p>
+    <a class="to-top" href="#">— TOP —</a>
+  </article>
+
+  <article id="c2">
+    <div class="art-head">
+      <span class="art-no">ESSAY II</span>
+      <h3>翼のない龍はなぜ飛べるのか</h3>
+      <div class="art-meta"><span class="art-tag">東</span>2026.10</div>
+    </div>
+    <p class="first">東洋の龍は、たいてい翼を持たない。それなのに雲を従えて天へ昇り、空を自在に泳ぐ。西洋のドラゴンが翼で飛ぶのと比べると、この対比はとても象徴的だ。</p>
+    <p>東洋の龍にとって、空を飛ぶことは身体の構造というより、龍という存在そのものの性質に近い。雲や雨、水と結びついた神獣だから、天に属している。翼は必要とされない。</p>
+    <p>一方の西洋の竜は、翼を持つ巨大な獣として描かれ、重さを抱えたまま空を舞う。飛ぶ理由が「能力」にあるのか「本質」にあるのか。その違いは、絵に描くときの線の流れ方にまで影響してくると思う。丸みのある曲線で描く龍と、角張った骨組みで描く竜。次の絵の課題にしたい。</p>
+    <a class="to-top" href="#">— TOP —</a>
+  </article>
+
+  <article id="c3">
+    <div class="art-head">
+      <span class="art-no">ESSAY III</span>
+      <h3>宝珠と財宝、ふたつの「守るもの」</h3>
+      <div class="art-meta"><span class="art-tag both">東西</span>2026.11</div>
+    </div>
+    <p class="first">東洋の龍はしばしば宝珠とともに描かれ、西洋の竜は財宝の山の上で眠る。どちらも「大切なものを手元に置く」姿だが、受ける印象は対照的だ。</p>
+    <p>宝珠は小さな一粒で、龍の力や徳の象徴として扱われる。龍はそれを追い、あるいは抱き、物語のなかで人と取り合いになることもある。財宝の方は量の物語で、積み上がった金貨や宝石を守る竜は、しばしば英雄に討たれる。</p>
+    <p>ひとつは「質」、もうひとつは「量」。守るものの種類が違うと、守る者の性格も違って見えてくるのが面白い。トップページの紋章で、二頭が中心の宝珠を挟んで向かい合う形にしたのは、この対比を一枚に収めたかったからでもある。</p>
+    <a class="to-top" href="#">— TOP —</a>
+  </article>
+
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h5>CONTACT</h5>
+      <p style="margin-bottom:10px;">ご意見・ご感想はこちらから</p>
+      <a href="https://formspree.io/f/maqvpvoz">お問い合わせフォーム</a>
+    </div>
+    <div class="footer-col">
+      <h5>NAVIGATE</h5>
+      <a href="index.html">ホーム</a>
+      <a href="blog.html">日誌</a>
+      <a href="gallery.html">図譜</a>
+      <a href="column.html">随筆</a>
+      <a href="about.html">由来</a>
+    </div>
+    <div class="footer-col">
+      <h5>AZALEA CREATIVE ROOM</h5>
+      <a href="#">創作の拠点はこちら</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>本サイトのテキスト・画像は生成AIの学習データとしての使用を禁じます。</span>
+    <span>© 鱗と焔</span>
+  </div>
+</footer>
+
+</body>
+</html>
